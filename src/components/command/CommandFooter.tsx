@@ -231,10 +231,10 @@ export function CommandFooter({
                                 className={`flex items-center gap-2 px-4 py-3 border-r border-[var(--border-primary)]/30 transition-all shrink-0 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 ${selectedCount === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 title="Toggle Preview (Tab)"
                             >
-                                <ChevronUp className="w-3.5 h-3.5" />
-                                <span className="font-bold">PREVIEW</span>
+                                <ChevronUp className="w-3.5 h-3.5 shrink-0" />
+                                <span className="font-bold whitespace-nowrap">PREVIEW</span>
                                 {selectedCount > 0 && (
-                                    <span className="text-[10px] opacity-60 ml-0.5">[{selectedCount}]</span>
+                                    <span className="text-[10px] opacity-60 ml-0.5 whitespace-nowrap">[{selectedCount}]</span>
                                 )}
                             </button>
 
@@ -260,8 +260,8 @@ export function CommandFooter({
                                     }`}
                                 title="Download Script (d)"
                             >
-                                <Download className="w-3 h-3" />
-                                <span className="hidden sm:inline">Download</span>
+                                <Download className="w-3 h-3 shrink-0" />
+                                <span className="hidden sm:inline whitespace-nowrap">Download</span>
                             </button>
 
                             {/* Tab: Copy (highlighted) */}
@@ -276,8 +276,8 @@ export function CommandFooter({
                                     }`}
                                 title="Copy Command (y)"
                             >
-                                {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                                <span className="hidden sm:inline">{copied ? 'Copied!' : 'Copy'}</span>
+                                {copied ? <Check className="w-3 h-3 shrink-0" /> : <Copy className="w-3 h-3 shrink-0" />}
+                                <span className="hidden sm:inline whitespace-nowrap">{copied ? 'Copied!' : 'Copy'}</span>
                             </button>
                         </div>
                     </div>

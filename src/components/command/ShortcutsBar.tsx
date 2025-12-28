@@ -50,7 +50,7 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
                     {/* LEFT SECTION */}
                     <div className="flex items-stretch">
                         {/* Mode Badge - like nvim NORMAL/INSERT */}
-                        <div className="bg-[var(--text-primary)] text-[var(--bg-primary)] px-3 py-1 font-bold flex items-center">
+                        <div className="bg-[var(--text-primary)] text-[var(--bg-primary)] px-3 py-1 font-bold flex items-center whitespace-nowrap">
                             {distroName.toUpperCase()}
                         </div>
 
@@ -84,7 +84,7 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
 
                         {/* App count */}
                         {selectedCount > 0 && (
-                            <div className="flex items-center px-3 py-1 text-[var(--text-muted)] border-r border-[var(--border-primary)]/30">
+                            <div className="flex items-center px-3 py-1 text-[var(--text-muted)] border-r border-[var(--border-primary)]/30 whitespace-nowrap">
                                 [{selectedCount} app{selectedCount !== 1 ? 's' : ''}]
                             </div>
                         )}
@@ -94,14 +94,14 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
                             <div className="flex items-stretch border-r border-[var(--border-primary)]/30">
                                 <button
                                     onClick={() => setSelectedHelper('yay')}
-                                    className={`px-3 flex items-center gap-2 text-[10px] font-medium transition-colors border-r border-[var(--border-primary)]/30 ${selectedHelper === 'yay' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'}`}
+                                    className={`px-3 flex items-center gap-2 text-[10px] font-medium transition-colors border-r border-[var(--border-primary)]/30 whitespace-nowrap ${selectedHelper === 'yay' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'}`}
                                 >
                                     <span className="font-mono opacity-70">1</span>
                                     yay
                                 </button>
                                 <button
                                     onClick={() => setSelectedHelper('paru')}
-                                    className={`px-3 flex items-center gap-2 text-[10px] font-medium transition-colors ${selectedHelper === 'paru' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'}`}
+                                    className={`px-3 flex items-center gap-2 text-[10px] font-medium transition-colors whitespace-nowrap ${selectedHelper === 'paru' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'}`}
                                 >
                                     <span className="font-mono opacity-70">2</span>
                                     paru

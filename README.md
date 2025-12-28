@@ -52,11 +52,11 @@ Shows which apps are available for your selected distro, with instructions for u
 
 
 
-## �📸 Screenshots 🖼️
+## 📸 Screenshots
 
-![](src/screenshots/1.png)
-![](src/screenshots/2.png)
-![](src/screenshots/3.png)
+![Main interface with app selection](src/screenshots/1.png)
+![Category browsing and filtering](src/screenshots/2.png)
+![Generated install script](src/screenshots/3.png)
 
 
 
@@ -76,6 +76,39 @@ Open [http://localhost:3000](http://localhost:3000)
 ```bash
 npm run build
 npm start
+```
+
+</details>
+
+
+<details>
+<summary><h2>🗂️ Project Structure</h2></summary>
+
+```
+src/
+├── app/                    # Next.js app router
+│   ├── page.tsx            # Main page component
+│   ├── layout.tsx          # Root layout with meta tags
+│   └── globals.css         # Tailwind styles
+├── components/
+│   ├── app/                # App cards & categories
+│   ├── command/            # Command footer & AUR bar
+│   ├── common/             # Tooltips, loading states
+│   ├── distro/             # Distribution selector
+│   ├── header/             # Header & theme toggle
+│   └── ui/                 # Base UI components
+├── hooks/                  # React hooks
+│   ├── useLinuxInit.ts     # Main app state management
+│   ├── useKeyboardNavigation.ts
+│   ├── useTheme.ts
+│   └── useDelayedTooltip.ts
+├── lib/
+│   ├── data.ts             # Apps, distros, icons
+│   ├── aur.ts              # AUR package detection
+│   ├── analytics.ts        # Umami tracking
+│   ├── generateInstallScript.ts
+│   └── scripts/            # Per-distro script generators
+└── __tests__/              # Vitest unit tests
 ```
 
 </details>
@@ -153,12 +186,14 @@ docker run -p 3000:3000 \
 
 ## 🛠️ Tech Stack
 
-- Next.js 16
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- Framer Motion
-- GSAP
+- [Next.js](https://nextjs.org/) 16 (App Router)
+- [React](https://react.dev/) 19
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) 4
+- [Framer Motion](https://www.framer.com/motion/)
+- [GSAP](https://gsap.com/)
+- [Vitest](https://vitest.dev/) (testing)
+- [Lucide React](https://lucide.dev/) (icons)
 
 
 ## 🚀 Usage

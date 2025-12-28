@@ -177,32 +177,34 @@ VPN & Network • Security • File Sharing • System
 
 ## 🎨 Icon System
 
-TuxMate uses the [Iconify API](https://iconify.design/) for icons.
+TuxMate uses the [Iconify API](https://iconify.design/) for icons. Icon helpers are defined in [`src/lib/data.ts`](src/lib/data.ts).
 
 ### Helper Functions
 
 | Function | Use Case | Example |
 |----------|----------|---------|
-| `si('slug', '#color')` | Brand icons | `si('firefox', '#FF7139')` |
+| `si('slug', '#color')` | Simple Icons (brands) | `si('firefox', '#FF7139')` |
 | `lo('slug')` | Colorful logos | `lo('chrome')` |
-| `mdi('slug', '#color')` | Material icons | `mdi('console', '#57F287')` |
-| `dev('slug')` | Developer tools | `dev('vscode')` |
-| `sk('slug')` | Skill/tech icons | `sk('react')` |
+| `mdi('slug', '#color')` | Material Design icons | `mdi('console', '#57F287')` |
+| `dev('slug')` | Devicon (dev tools) | `dev('vscode')` |
+| `sk('slug')` | Skill Icons (colorful) | `sk('react')` |
 | `vs('slug')` | VS Code file icons | `vs('file-type-shell')` |
 
 ### Finding Icon Slugs
 
 | Source | URL | Notes |
 |--------|-----|-------|
-| **Simple Icons** | [simpleicons.org](https://simpleicons.org/) | Use lowercase slug |
+| **Simple Icons** | [simpleicons.org](https://simpleicons.org/) | Use lowercase slug, add hex color |
 | **Material Design** | [pictogrammers.com/library/mdi](https://pictogrammers.com/library/mdi/) | Use icon name |
+| **Iconify Search** | [icon-sets.iconify.design](https://icon-sets.iconify.design/) | Search all sets |
 | **Fallback** | — | Use `mdi('application', '#color')` |
 
 ### Icon Requirements
 
 - ✅ Must be recognizable at 24×24px
-- ✅ Use [official brand colors](https://simpleicons.org)
-- ✅ Monochrome icons require a color parameter
+- ✅ Use [official brand colors](https://simpleicons.org) - click icon to copy hex
+- ✅ Monochrome icons (si, mdi) require a color parameter
+- ✅ Colorful icons (lo, sk, vs) don't need color
 - ❌ Don't use blurry or low-quality external URLs
 
 ---
@@ -224,6 +226,7 @@ TuxMate uses the [Iconify API](https://iconify.design/) for icons.
 - [ ] Tested locally with `npm run dev`
 - [ ] Production build passes: `npm run build`
 - [ ] Lint passes: `npm run lint`
+- [ ] Unit tests pass: `npm run test`
 - [ ] Apps added in **alphabetical order** within their category
 - [ ] Icons display correctly at small sizes
 
@@ -273,6 +276,7 @@ npm run dev
 ```bash
 npm run lint          # Check for errors
 npm run lint -- --fix # Auto-fix issues
+npm run test          # Run unit tests
 npm run build         # Verify production build
 ```
 
@@ -304,34 +308,57 @@ Distributions are defined in [`src/lib/data.ts`](src/lib/data.ts).
 {
   id: 'distro-id',
   name: 'Display Name',
-  iconUrl: si('distro-slug'),
+  iconUrl: si('distro-slug', '#color'),
   color: '#HexColor',
   installPrefix: 'sudo pkg install -y'
 }
 ```
 
 ### After Adding a Distro
-1. Update `src/lib/generateInstallScript.ts`
-2. Add the distro case in `generateInstallScript()`
-3. Handle distro-specific logic (repo enabling, AUR helpers, etc.)
-4. Include proper error handling and package detection
+1. Add the distro ID to the `DistroId` type in `src/lib/data.ts`
+2. Create a new script generator file: `src/lib/scripts/[distro].ts`
+3. Export the generator from `src/lib/scripts/index.ts`
+4. Add the case in `src/lib/generateInstallScript.ts` (both functions)
+5. Handle distro-specific logic (repo setup, package detection, etc.)
+6. Add `targets.[distro]` entries to relevant apps in `data.ts`
 
 ---
 
 ## ⚙️ Script Generation
 
-The install script logic lives in [`src/lib/generateInstallScript.ts`](src/lib/generateInstallScript.ts).
+Script generation is modular. Each distro has its own generator:
+
+```
+src/lib/
+├── generateInstallScript.ts    # Main entry point
+├── aur.ts                      # AUR package detection
+└── scripts/
+    ├── index.ts                # Exports all generators
+    ├── shared.ts               # Colors, progress bars, utilities
+    ├── arch.ts                 # Arch + AUR (yay)
+    ├── debian.ts               # Debian apt
+    ├── ubuntu.ts               # Ubuntu apt + PPA handling
+    ├── fedora.ts               # Fedora dnf + RPM Fusion
+    ├── opensuse.ts             # openSUSE zypper
+    ├── nix.ts                  # Nix package manager
+    ├── flatpak.ts              # Flatpak (parallel install)
+    └── snap.ts                 # Snap packages
+```
 
 ### Key Features to Maintain
-- Package detection for already-installed software
-- AUR handling with auto-install of yay helper
-- RPM Fusion auto-enabling for Fedora
-- Parallel installation support for Flatpak
-- Exponential backoff retry for network failures
-- Progress bars with ETA and colored output
+- **Package detection** - Skip already-installed packages
+- **AUR handling** - Auto-install `yay` helper (see `aur.ts` for patterns)
+- **RPM Fusion** - Auto-enable for Fedora when needed
+- **Parallel installation** - Flatpak concurrent installs
+- **Network retry** - Exponential backoff for failures
+- **Progress bars** - ETA with colored output
+- **Shell escaping** - Security against injection (see `escapeShellString()` in `shared.ts`)
 
 ### Testing Script Changes
 ```bash
+# Run unit tests (shell escaping, AUR detection)
+npm run test
+
 # Generate and test a script
 npm run dev
 # Select packages → Copy script → Test in VM/container

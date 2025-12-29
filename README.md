@@ -242,7 +242,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 - [ ] Dotfiles integration
 
 <details>
+<<<<<<< HEAD
 <summary><h4>🔗 Related Projects</h4></summary>
+=======
+<summary><h2>🔗 Related Projects</h2></summary>
+>>>>>>> 0cbf41e (fix: add move zellij from terminal to cli tools)
 
 - **[LinuxToys](https://github.com/psygreg/linuxtoys)** – User-friendly collection of tools for Linux with an intuitive interface
 - **[Nixite](https://github.com/aspizu/nixite)** – Generates bash scripts to install Linux software, inspired by Ninite

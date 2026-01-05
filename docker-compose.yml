@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/retrozenith/tuxmate:latest
+    image: ghcr.io/abusoww/tuxmate:latest
     container_name: tuxmate
     ports:
       - "3000:80"

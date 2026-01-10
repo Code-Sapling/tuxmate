@@ -6,6 +6,7 @@ import {
     Network, Lock, Share2, Cpu, type LucideIcon
 } from 'lucide-react';
 
+// Map category names to their icons. If you add a category, add an icon here.
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
     'Web Browsers': Globe,
     'Communication': MessageCircle,
@@ -24,7 +25,7 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
     'System': Cpu,
 };
 
-// Basic Tailwind-ish color palette for mapping
+// Tailwind colors as hex
 const COLOR_MAP: Record<string, string> = {
     'orange': '#f97316',
     'blue': '#3b82f6',
@@ -43,7 +44,10 @@ const COLOR_MAP: Record<string, string> = {
     'gray': '#6b7280',
 };
 
-// Clickable category header with chevron and selection count
+/**
+ * Collapsible category header with icon, chevron, and selection badge.
+ * Uses color-mix for dynamic tinting because we're fancy like that.
+ */
 export function CategoryHeader({
     category,
     isExpanded,

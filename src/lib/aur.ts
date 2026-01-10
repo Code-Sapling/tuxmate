@@ -1,6 +1,10 @@
-// AUR package detection - figures out if a package is from AUR or official repos
+/**
+ * AUR package detection for Arch users.
+ * Figures out if a package comes from AUR or official repos.
+ * Necessary because yay/paru handle AUR packages differently.
+ */
 
-/** Patterns that indicate an AUR package (suffixes) */
+/** Suffixes that scream "I'm from the AUR" */
 export const AUR_PATTERNS = ['-bin', '-git', '-appimage'];
 
 /**

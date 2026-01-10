@@ -27,7 +27,11 @@ interface CommandFooterProps {
     setSelectedHelper: (helper: 'yay' | 'paru') => void;
 }
 
-// The sticky footer with command preview and copy/download buttons
+/**
+ * The sticky footer that shows the generated command and action buttons.
+ * Contains more state than I'd like, but hey, it works.
+ * Keyboard shortcuts are vim-style because we're not savages.
+ */
 export function CommandFooter({
     command,
     selectedCount,
@@ -52,9 +56,11 @@ export function CommandFooter({
 
     const { toggle: toggleTheme } = useTheme();
 
-    // Track if selection has changed from initial state (user interaction)
+    // Track if user has actually interacted - we hide the bar until then.
+    // Otherwise it just sits there looking sad with "No apps selected".
     useEffect(() => {
         if (selectedCount !== initialCountRef.current && !hasEverHadSelection) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setHasEverHadSelection(true);
         }
     }, [selectedCount, hasEverHadSelection]);

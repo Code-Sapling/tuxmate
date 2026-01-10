@@ -5,7 +5,10 @@ import { createPortal } from 'react-dom';
 import { HelpCircle, X } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 
-// The "?" help modal - shows keyboard shortcuts and how to use the app
+/**
+ * Help modal with keyboard shortcuts and getting started guide.
+ * Opens with "?" key - because that's what you'd naturally press.
+ */
 export function HowItWorks() {
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);

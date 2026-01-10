@@ -7,7 +7,11 @@ import { isAurPackage } from '@/lib/aur';
 // Re-export for backwards compatibility
 export { isAurPackage, AUR_PATTERNS, KNOWN_AUR_PACKAGES } from '@/lib/aur';
 
-// Everything the app needs to work
+/**
+ * The big hook that runs the whole show.
+ * Manages distro selection, app selection, localStorage persistence,
+ * and command generation. If this breaks, everything breaks.
+ */
 
 export interface UseLinuxInitReturn {
     selectedDistro: DistroId;
@@ -83,7 +87,7 @@ export function useLinuxInit(): UseLinuxInitReturn {
         setHydrated(true);
     }, []);
 
-    // Persist to localStorage when state changes
+    // Save to localStorage whenever state changes (but not on first render)
     useEffect(() => {
         if (!hydrated) return;
         try {
@@ -223,7 +227,7 @@ export function useLinuxInit(): UseLinuxInitReturn {
             return packageNames.map(p => `sudo snap install ${p}`).join(' && ');
         }
 
-        // Handle Arch Linux with AUR packages
+        // Arch with AUR packages - this is where it gets fun
         if (selectedDistro === 'arch' && aurPackageInfo.hasAur) {
             if (!hasYayInstalled) {
                 // User doesn't have current helper installed - prepend installation

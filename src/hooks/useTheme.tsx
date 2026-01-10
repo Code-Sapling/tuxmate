@@ -11,6 +11,10 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
+/**
+ * Theme provider that syncs with localStorage and system preferences.
+ * Also handles the initial hydration dance to avoid theme flash.
+ */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Initial state reads from DOM to match what the inline script set
     const [theme, setTheme] = useState<Theme>(() => {

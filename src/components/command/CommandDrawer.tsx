@@ -23,7 +23,11 @@ interface CommandDrawerProps {
     distroColor: string;
 }
 
-// Bottom sheet for mobile, centered modal for desktop
+/**
+ * Command drawer that shows the generated install command.
+ * Acts as a bottom sheet on mobile (swipe to dismiss) and a centered modal on desktop.
+ * If you're reading this, yes, I did spend way too much time on the animations.
+ */
 export function CommandDrawer({
     isOpen,
     isClosing,
@@ -41,11 +45,11 @@ export function CommandDrawer({
     setSelectedHelper,
     distroColor,
 }: CommandDrawerProps) {
-    // Swipe-to-dismiss state
+    // Swipe-to-dismiss for mobile users who hate tapping tiny X buttons
     const [dragOffset, setDragOffset] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const dragStartY = useRef(0);
-    const DISMISS_THRESHOLD = 100; // px to drag before closing
+    const DISMISS_THRESHOLD = 100; // Feels right™
 
     const handleTouchStart = (e: React.TouchEvent) => {
         dragStartY.current = e.touches[0].clientY;
@@ -69,6 +73,7 @@ export function CommandDrawer({
 
     if (!isOpen) return null;
 
+    // Copy command and auto-close after a celebratory 3 seconds
     const handleCopyAndClose = () => {
         onCopy();
         setTimeout(onClose, 3000);
@@ -149,8 +154,7 @@ export function CommandDrawer({
                         />
                     )}
 
-                    {/* Terminal window */}
-                    {/* Terminal window */}
+                    {/* Terminal preview - where the magic gets displayed */}
                     <div className="bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-primary)] overflow-hidden shadow-sm">
                         <div className="flex items-center justify-between px-4 py-2 bg-[var(--bg-tertiary)] border-b border-[var(--border-primary)]">
                             <span className="text-xs font-mono text-[var(--text-muted)]">bash</span>

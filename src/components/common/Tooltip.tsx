@@ -10,6 +10,11 @@ interface TooltipProps {
     setRef?: (el: HTMLDivElement | null) => void;
 }
 
+/**
+ * Follow-cursor tooltip that appears on hover.
+ * Desktop only - mobile users don't have a cursor to follow.
+ * Supports markdown-ish formatting: **bold**, `code`, and [links](url).
+ */
 export function Tooltip({ tooltip, onMouseEnter, onMouseLeave, setRef }: TooltipProps) {
     const [current, setCurrent] = useState<TooltipState | null>(null);
     const [visible, setVisible] = useState(false);

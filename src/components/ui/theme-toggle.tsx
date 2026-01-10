@@ -14,7 +14,11 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     const { theme, toggle } = useTheme()
     const [mounted, setMounted] = useState(false)
 
-    // Prevent hydration mismatch by only rendering after mount
+    /**
+     * Classic hydration mismatch avoidance. Server has no idea what
+     * localStorage says, so we render a placeholder first.
+     * Yes, there's probably a better way. No, I don't want to hear about it.
+     */
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setMounted(true)

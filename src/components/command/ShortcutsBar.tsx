@@ -14,7 +14,11 @@ interface ShortcutsBarProps {
     setSelectedHelper: (helper: 'yay' | 'paru') => void;
 }
 
-// Neovim-style statusline - looks cool and shows all the keyboard shortcuts
+/**
+ * Neovim-style statusline at the bottom.
+ * Shows search, app count, AUR helper toggle, and keyboard shortcuts.
+ * If you use vim, you'll feel right at home.
+ */
 export function ShortcutsBar({
     searchQuery,
     onSearchChange,

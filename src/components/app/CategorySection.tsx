@@ -7,7 +7,11 @@ import { analytics } from '@/lib/analytics';
 import { CategoryHeader } from './CategoryHeader';
 import { AppItem } from './AppItem';
 
-// A category with its apps - handles animations and expand/collapse
+/**
+ * A collapsible category section containing a list of apps.
+ * Handles its own GSAP animations because CSS transitions just weren't cutting it.
+ * Memoized to hell and back because React was re-rendering everything.
+ */
 interface CategorySectionProps {
     category: Category;
     categoryApps: AppData[];
@@ -26,7 +30,10 @@ interface CategorySectionProps {
     onAppFocus?: (appId: string) => void;
 }
 
-// Category color mapping
+/**
+ * Color palette for categories. Vibrant ones go to user-facing stuff,
+ * boring grays go to developer tools because we're used to suffering.
+ */
 const categoryColors: Record<Category, string> = {
     'Web Browsers': 'orange',
     'Communication': 'blue',
@@ -162,7 +169,10 @@ function CategorySectionComponent({
     );
 }
 
-// Custom memo comparison to ensure proper re-renders when categoryApps changes
+/**
+ * Custom memo comparison because React's shallow compare was killing perf.
+ * This is the kind of thing that makes you question your career choices.
+ */
 export const CategorySection = memo(CategorySectionComponent, (prevProps, nextProps) => {
     // Always re-render if app count changes
     if (prevProps.categoryApps.length !== nextProps.categoryApps.length) return false;

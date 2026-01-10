@@ -4,10 +4,12 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, ChevronDown } from 'lucide-react';
 import { distros, type DistroId } from '@/lib/data';
-import { analytics } from '@/lib/analytics';
 import { DistroIcon } from './DistroIcon';
 
-// Dropdown to pick your Linux flavor
+/**
+ * Distro picker dropdown. Uses portal rendering so the dropdown isn't
+ * clipped by parent overflow. Learned that lesson the hard way.
+ */
 export function DistroSelector({
     selectedDistro,
     onSelect
@@ -40,7 +42,8 @@ export function DistroSelector({
         setIsOpen(!isOpen);
     };
 
-    // Dropdown rendered via portal to body
+    // Portal the dropdown to body so it's not affected by parent styles.
+    // The positioning math looks scary but it's just "anchor to button bottom-right".
     const dropdown = isOpen && mounted ? (
         <>
             {/* Backdrop with subtle blur */}

@@ -8,7 +8,12 @@ interface AurDrawerSettingsProps {
     setSelectedHelper: (helper: 'yay' | 'paru') => void;
 }
 
-// AUR settings configuration panel
+/**
+ * AUR package settings panel for Arch users.
+ * Lets you pick between yay and paru, and whether to install the helper.
+ * The naming of hasYayInstalled is a bit misleading - it actually means
+ * "user already has an AUR helper" regardless of which one. Tech debt, I know.
+ */
 export function AurDrawerSettings({
     aurAppNames,
     hasYayInstalled,

@@ -12,7 +12,11 @@ interface AurFloatingCardProps {
     setSelectedHelper: (helper: 'yay' | 'paru') => void;
 }
 
-// Floating cards that ask Arch users about their AUR helper (yay vs paru drama)
+/**
+ * Floating card wizard for Arch users with AUR packages.
+ * Asks whether they have an AUR helper, then which one.
+ * The yay vs paru debate is the real holy war of our time.
+ */
 export function AurFloatingCard({
     show,
     aurAppNames,
@@ -27,7 +31,7 @@ export function AurFloatingCard({
     const [hasAnswered, setHasAnswered] = useState<boolean | null>(null);
     // Track if user has selected a helper (completed flow)
     const [helperChosen, setHelperChosen] = useState(false);
-    // Track if user has interacted (dismissed or selected) to prevent nagging - use ref to persist
+    // Tracks if user has answered - use ref to survive re-renders
     const userInteractedRef = useRef(false);
 
     // Reset when new AUR packages appear, BUT ONLY if user hasn't interacted yet

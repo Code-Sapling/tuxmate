@@ -17,7 +17,11 @@ export interface FocusPosition {
 }
 
 
-// Vim-style keyboard navigation. Because real devs don't use mice.
+/**
+ * Vim-style keyboard navigation for the app grid.
+ * Because hjkl is objectively superior to arrow keys.
+ * Also supports arrow keys for the normies.
+ */
 export function useKeyboardNavigation(
     navItems: NavItem[][],
     onToggleCategory: (id: string) => void,

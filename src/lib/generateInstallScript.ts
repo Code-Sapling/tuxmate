@@ -21,7 +21,10 @@ interface ScriptOptions {
     helper?: 'yay' | 'paru';
 }
 
-// The full fancy script with progress bars and all that jazz
+/**
+ * Generate a full install script with progress bars, error handling,
+ * and all the fancy stuff. This is what gets downloaded as .sh file.
+ */
 export function generateInstallScript(options: ScriptOptions): string {
     const { distroId, selectedAppIds, helper = 'yay' } = options;
     const distro = distros.find(d => d.id === distroId);
@@ -45,7 +48,10 @@ export function generateInstallScript(options: ScriptOptions): string {
     }
 }
 
-// Quick one-liner for copy-paste warriors
+/**
+ * Quick one-liner for the clipboard. No frills, just the command.
+ * For users who know what they're doing and just want to paste.
+ */
 export function generateSimpleCommand(selectedAppIds: Set<string>, distroId: DistroId): string {
     const packages = getSelectedPackages(selectedAppIds, distroId);
     if (packages.length === 0) return '# No packages selected';

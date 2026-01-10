@@ -100,8 +100,7 @@ export default function Home() {
         return cols;
     }, [allCategoriesWithApps]);
 
-    // ========================================================================
-    // Category Expansion State
+    // Category expansion - all open by default because hiding stuff is annoying
     // ========================================================================
 
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => new Set(categories));
@@ -141,8 +140,7 @@ export default function Home() {
         toggleApp
     );
 
-    // ========================================================================
-    // Header Animation
+    // Header animation - makes the logo look fancy on first load
     // ========================================================================
 
     const headerRef = useRef<HTMLElement>(null);
@@ -189,8 +187,7 @@ export default function Home() {
         return <LoadingSkeleton />;
     }
 
-    // ========================================================================
-    // Render
+    // Finally, the actual page
     // ========================================================================
 
     return (

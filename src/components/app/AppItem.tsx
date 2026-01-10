@@ -3,13 +3,16 @@
 import { memo } from 'react';
 import { Check } from 'lucide-react';
 import { distros, type DistroId, type AppData } from '@/lib/data';
-import { analytics } from '@/lib/analytics';
 import { isAurPackage } from '@/lib/aur';
 import { AppIcon } from './AppIcon';
 
-// Each app row in the list. Memoized because there are a LOT of these.
+/**
+ * Individual app row in the category list.
+ * Memoized because we render hundreds of these and React was having a moment.
+ * Handles selection state, availability indicators, AUR badges, and tooltips.
+ */
 
-// Basic Tailwind-ish color palette for mapping
+// Tailwind colors as hex - because CSS variables don't work in inline styles
 const COLOR_MAP: Record<string, string> = {
     'orange': '#f97316',
     'blue': '#3b82f6',
@@ -62,8 +65,7 @@ export const AppItem = memo(function AppItem({
     // Special styling for AUR packages (Arch users love their badges)
     const isAur = selectedDistro === 'arch' && app.targets?.arch && isAurPackage(app.targets.arch);
 
-    // Determine effective color (AUR overrides category color for the checkbox/badge, but maybe not the row border)
-    // Actually, let's keep the row border as the category color for consistency
+    // AUR gets its special Arch blue, everything else uses category color
     const hexColor = COLOR_MAP[color] || COLOR_MAP['gray'];
     const checkboxColor = isAur ? '#1793d1' : hexColor;
 
@@ -90,7 +92,6 @@ export const AppItem = memo(function AppItem({
                 e.stopPropagation();
                 onFocus?.();
                 if (isAvailable) {
-                    const willBeSelected = !isSelected;
                     onToggle();
                 }
             }}

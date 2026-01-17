@@ -5,6 +5,7 @@ import { Check } from 'lucide-react';
 import { distros, type DistroId, type AppData } from '@/lib/data';
 import { isAurPackage } from '@/lib/aur';
 import { AppIcon } from './AppIcon';
+// import { analytics } from '@/lib/analytics'; // Uncomment to enable app selection tracking
 
 /**
  * Individual app row in the category list.
@@ -93,6 +94,12 @@ export const AppItem = memo(function AppItem({
                 onFocus?.();
                 if (isAvailable) {
                     onToggle();
+                    // Umami tracking disabled to save quota
+                    // if (isSelected) {
+                    //     analytics.appDeselected(app.name, app.category || '', selectedDistro);
+                    // } else {
+                    //     analytics.appSelected(app.name, app.category || '', selectedDistro);
+                    // }
                 }
             }}
         >

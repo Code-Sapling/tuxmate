@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, ChevronDown } from 'lucide-react';
 import { distros, type DistroId } from '@/lib/data';
+import { analytics } from '@/lib/analytics';
 import { DistroIcon } from './DistroIcon';
 
 /**
@@ -78,7 +79,7 @@ export function DistroSelector({
                     {distros.map((distro, i) => (
                         <button
                             key={distro.id}
-                            onClick={() => { onSelect(distro.id); setIsOpen(false); }}
+                            onClick={() => { onSelect(distro.id); setIsOpen(false); analytics.distroSelected(distro.name); }}
                             className={`group w-full flex items-center gap-3 py-3 px-4 cursor-pointer text-left transition-colors duration-100 ${selectedDistro === distro.id
                                 ? 'border-l-2 -ml-[2px] pl-[18px]'
                                 : 'hover:bg-[var(--bg-hover)]'

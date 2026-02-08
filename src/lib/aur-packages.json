@@ -13,6 +13,9 @@
         "bitwarden",
         "cura",
         "davinci-resolve",
-        "fsearch"
+        "fsearch",
+        "pycharm",
+        "clion"
+
     ]
 }
